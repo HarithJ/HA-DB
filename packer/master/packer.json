@@ -1,0 +1,33 @@
+{
+  "variables": {
+    "service_account_json": "{{env `GOOGLE_APPLICATION_CREDENTIALS`}}",
+    "project_id": "{{env `PROJECT_ID`}}"
+  },
+  "builders": [
+    {
+      "type": "googlecompute",
+      "project_id": "{{user `project_id`}}",
+      "machine_type": "n1-standard-1",
+      "source_image": "ubuntu-1604-xenial-v20190306",
+      "region": "europe-west1",
+      "zone": "europe-west1-b",
+      "ssh_username": "ubuntu",
+      "image_description": "db image load balancer master",
+      "image_family": "ubuntu-1604-lts",
+      "image_name": "harith-db-master",
+      "disk_size": 10,
+      "account_file": "{{ user `service_account_json`}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "./packer/master/configs",
+      "destination": "/tmp/configs"
+    },
+    {
+      "type": "shell",
+      "script": "./packer/master/setup.sh"
+    }
+  ]
+}

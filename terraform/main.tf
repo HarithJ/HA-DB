@@ -23,6 +23,7 @@ resource "google_compute_instance" "db-lb-master" {
 
   network_interface {
     network = "default"
+    network_ip = "10.132.0.76"
 
     access_config {
       // Ephemeral IP
@@ -43,6 +44,7 @@ resource "google_compute_instance" "db-lb-slave1" {
 
   network_interface {
     network = "default"
+    network_ip = "10.132.15.193"
 
     access_config {
       // Ephemeral IP
@@ -63,6 +65,7 @@ resource "google_compute_instance" "db-lb-slave2" {
 
   network_interface {
     network = "default"
+    network_ip = "10.132.15.195"
 
     access_config {
       // Ephemeral IP
@@ -77,7 +80,7 @@ resource "google_compute_instance" "haproxy-db-lb" {
 
   boot_disk {
     initialize_params {
-      image = "haproxy-image"
+      image = "harith-haproxy-image"
     }
   }
 
