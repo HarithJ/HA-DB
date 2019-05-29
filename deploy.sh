@@ -16,7 +16,7 @@ buildSlaveImage() {
 
 buildHaproxyImage() {
   touch haproxy_image_output.log
-  packer build packer/slaves/packer.json 2>&1 | tee haproxy_image_output.log
+  packer build packer/haproxy/packer.json 2>&1 | tee haproxy_image_output.log
   HAPROXY_IMG_TAG="$(grep 'A disk image was created:' haproxy_image_output.log | cut -d' ' -f8)"
   echo $HAPROXY_IMG_TAG
 }

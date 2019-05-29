@@ -27,7 +27,7 @@
     },
     {
       "type": "shell",
-      "script": "./haproxy/setup.sh"
+      "script": "./packer/haproxy/setup.sh"
     }
   ]
 }
