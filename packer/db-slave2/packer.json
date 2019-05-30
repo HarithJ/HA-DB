@@ -1,8 +1,7 @@
 {
   "variables": {
     "service_account_json": "{{env `GOOGLE_APPLICATION_CREDENTIALS`}}",
-    "project_id": "{{env `PROJECT_ID`}}",
-    "image_name": "harith-db-slave"
+    "project_id": "{{env `PROJECT_ID`}}"
   },
   "builders": [
     {
@@ -13,9 +12,9 @@
       "region": "europe-west1",
       "zone": "europe-west1-b",
       "ssh_username": "ubuntu",
-      "image_description": "db image load balancer slave",
+      "image_description": "db image load balancer master",
       "image_family": "ubuntu-1604-lts",
-      "image_name": "{{user `image_name`}}",
+      "image_name": "harith-db-slave2",
       "disk_size": 10,
       "account_file": "{{ user `service_account_json`}}"
     }
@@ -23,12 +22,12 @@
   "provisioners": [
     {
       "type": "file",
-      "source": "./packer/slaves/configs",
+      "source": "./packer/master/configs",
       "destination": "/tmp/configs"
     },
     {
       "type": "shell",
-      "script": "./packer/slaves/setup.sh"
+      "script": "./packer/master/setup.sh"
     }
   ]
 }
