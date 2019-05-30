@@ -14,7 +14,7 @@
       "ssh_username": "ubuntu",
       "image_description": "db image load balancer master",
       "image_family": "ubuntu-1604-lts",
-      "image_name": "harith-db-slave2",
+      "image_name": "harith-etcd",
       "disk_size": 10,
       "account_file": "{{ user `service_account_json`}}"
     }
@@ -22,12 +22,12 @@
   "provisioners": [
     {
       "type": "file",
-      "source": "./packer/db-slave2/configs",
+      "source": "./packer/etcd/configs",
       "destination": "/tmp/configs"
     },
     {
       "type": "shell",
-      "script": "./packer/db-slave2/setup.sh"
+      "script": "./packer/etcd/setup.sh"
     }
   ]
 }

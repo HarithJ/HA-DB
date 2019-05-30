@@ -22,12 +22,12 @@
   "provisioners": [
     {
       "type": "file",
-      "source": "./packer/master/configs",
+      "source": "./packer/db-slave1/configs",
       "destination": "/tmp/configs"
     },
     {
       "type": "shell",
-      "script": "./packer/master/setup.sh"
+      "script": "./packer/db-slave1/setup.sh"
     }
   ]
 }
