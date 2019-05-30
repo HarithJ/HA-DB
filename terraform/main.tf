@@ -4,68 +4,20 @@ provider "google" {
   region      = "${var.region}"
 }
 
-resource "google_compute_address" "haproxy-ip" {
-  name = "harith-haproxy-ip"
-  region = "${var.region}"
-}
-
-# Create the master db instance
-resource "google_compute_instance" "db-lb-master" {
-  name         = "harith-db-master"
+resource "google_compute_instance" "etcd" {
+  name         = "harith-etcd"
   machine_type = "g1-small"
   zone         = "${var.zone}"
 
   boot_disk {
     initialize_params {
-      image = "harith-db-master"
+      image = "harith-etcd"
     }
   }
 
   network_interface {
     network = "default"
-    network_ip = "10.132.0.76"
-
-    access_config {
-      // Ephemeral IP
-    }
-  }
-}
-
-resource "google_compute_instance" "db-lb-slave1" {
-  name         = "harith-db-slave1"
-  machine_type = "g1-small"
-  zone         = "${var.zone}"
-
-  boot_disk {
-    initialize_params {
-      image = "harith-db-slave"
-    }
-  }
-
-  network_interface {
-    network = "default"
-    network_ip = "10.132.15.193"
-
-    access_config {
-      // Ephemeral IP
-    }
-  }
-}
-
-resource "google_compute_instance" "db-lb-slave2" {
-  name         = "harith-db-slave2"
-  machine_type = "g1-small"
-  zone         = "${var.zone}"
-
-  boot_disk {
-    initialize_params {
-      image = "harith-db-slave"
-    }
-  }
-
-  network_interface {
-    network = "default"
-    network_ip = "10.132.15.195"
+    network_ip = "10.0.2.21"
 
     access_config {
       // Ephemeral IP
@@ -80,13 +32,13 @@ resource "google_compute_instance" "haproxy-db-lb" {
 
   boot_disk {
     initialize_params {
-      image = "harith-haproxy-image"
+      image = "harith-haproxy"
     }
   }
 
   network_interface {
     network    = "default"
-    network_ip = "${var.haproxy_internal_ip}"
+    network_ip = "10.0.2.31"
 
     access_config {
       nat_ip = "${google_compute_address.haproxy-ip.address}"
