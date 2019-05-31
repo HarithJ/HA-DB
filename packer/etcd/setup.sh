@@ -15,13 +15,14 @@ installEtcd () {
 configureEtcd () {
   printf '=========================== Configure etcd ============================== \n'
 
+  sudo rm -f /etc/default/etcd
   sudo cp /tmp/configs/etcd /etc/default/etcd
-  sudo systemctl restart etcd
 }
 
 # this is the main function that invokes all the other functions
 main () {
   installEtcd
+  configureEtcd
 }
 
 main
