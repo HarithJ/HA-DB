@@ -16,7 +16,9 @@ resource "google_compute_instance" "etcd" {
   }
 
   network_interface {
-    network = "default"
+    network = "${google_compute_network.ha-db-network.self_link}"
+    subnetwork = "${google_compute_subnetwork.ha-db-subnet.self_link}"
+
     network_ip = "10.0.2.21"
 
     access_config {
@@ -37,7 +39,9 @@ resource "google_compute_instance" "haproxy-db-lb" {
   }
 
   network_interface {
-    network    = "default"
+    network    = "${google_compute_network.ha-db-network.self_link}"
+    subnetwork = "${google_compute_subnetwork.ha-db-subnet.self_link}"
+
     network_ip = "10.0.2.31"
 
     access_config {

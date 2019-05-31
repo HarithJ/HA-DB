@@ -11,7 +11,9 @@ resource "google_compute_instance" "db-lb-master" {
   }
 
   network_interface {
-    network = "default"
+    network = "${google_compute_network.ha-db-network.self_link}"
+    subnetwork = "${google_compute_subnetwork.ha-db-subnet.self_link}"
+
     network_ip = "10.0.2.11"
 
     access_config {
@@ -32,7 +34,9 @@ resource "google_compute_instance" "db-lb-slave1" {
   }
 
   network_interface {
-    network = "default"
+    network = "${google_compute_network.ha-db-network.self_link}"
+    subnetwork = "${google_compute_subnetwork.ha-db-subnet.self_link}"
+
     network_ip = "10.0.2.12"
 
     access_config {
@@ -53,7 +57,9 @@ resource "google_compute_instance" "db-lb-slave2" {
   }
 
   network_interface {
-    network = "default"
+    network = "${google_compute_network.ha-db-network.self_link}"
+    subnetwork = "${google_compute_subnetwork.ha-db-subnet.self_link}"
+    
     network_ip = "10.0.2.13"
 
     access_config {

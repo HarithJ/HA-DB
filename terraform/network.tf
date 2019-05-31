@@ -3,6 +3,15 @@ resource "google_compute_network" "ha-db-network" {
   auto_create_subnetworks = "false"
 }
 
+resource "google_compute_firewall" "ha-db-firewall" {
+  name    = "ha-db-firewall"
+  network = "${google_compute_network.ha-db-network.name}"
+
+  allow {
+    protocol = "all"
+  }
+}
+
 resource "google_compute_subnetwork" "ha-db-subnet" {
   name   = "harith-db-subnet"
   ip_cidr_range = "10.0.2.0/24"
