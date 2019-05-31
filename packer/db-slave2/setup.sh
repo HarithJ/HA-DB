@@ -10,7 +10,7 @@ installPostgress () {
 configurePostgres () {
   printf '=========================== Configure Postgres for Patroni ============================== \n'
 
-  sudo systemctl stop postgresql
+  sudo systemctl disable postgresql
   sudo ln -s /usr/lib/postgresql/9.5/bin/* /usr/sbin/
 
 }
@@ -38,7 +38,7 @@ startPatroni () {
   printf '=========================== Start Patroni ============================== \n'
 
   sudo cp /tmp/configs/patroni.service /etc/systemd/system/patroni.service
-  sudo systemctl start patroni
+  sudo systemctl enable patroni
 }
 
 run () {
